@@ -2,6 +2,7 @@ from errbot import BotPlugin, botcmd, arg_botcmd, re_botcmd
 import re
 
 lucky_numbers = [77777977, 777797777, 7777777797777]
+minimum_numbers = 4
 
 
 class Luckynumberdetector(BotPlugin):
@@ -11,13 +12,15 @@ class Luckynumberdetector(BotPlugin):
         match = re.findall('[0-9]+', mess)
         reply = ''
         total = 0
+        count = 0
         for item in match:
             reply = reply + item + ' + '
             total = total + int(item)
+            count = count + 1
         reply = reply[:-1]
         reply = reply + ' = ' + str(total)
         match = [int(i) for i in match]
-        if sum(match) in lucky_numbers:
+        if sum(match) in lucky_numbers and count >= minimum_numbers:
             self.send_card(
                   in_reply_to=mess,
                   body=reply,
@@ -26,4 +29,4 @@ class Luckynumberdetector(BotPlugin):
 
     @botcmd()
     def luckynumber(self, msg, args):
-        return lucky_numbers
+        return str(lucky_numbers) + ' in ' + str(minimum_numbers) + ' numbers'
