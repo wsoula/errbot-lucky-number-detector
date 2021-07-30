@@ -17,7 +17,7 @@ class Luckynumberdetector(BotPlugin):
             reply = reply + item + ' + '
             total = total + int(item)
             count = count + 1
-        reply = reply[:-1]
+        reply = reply[:-3]
         reply = reply + ' = ' + str(total)
         match = [int(i) for i in match]
         if sum(match) in lucky_numbers and count >= minimum_numbers:
