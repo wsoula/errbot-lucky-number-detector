@@ -1,0 +1,9 @@
+[Core]
+Name = Luckynumberdetector
+Module = luckynumberdetector
+
+[Documentation]
+Description = Detect lucky number(s) from numbers in response
+
+[Python]
+Version = 3
