@@ -9,7 +9,7 @@ class Luckynumberdetector(BotPlugin):
     """Detects responses where the numbers add up to the lucky number(s)"""
     def callback_message(self, mess):
         """Runs on every message"""
-        match = re.findall('[0-9]+', mess.body())
+        match = re.findall('[0-9]+', mess.body)
         reply = ''
         total = 0
         count = 0
