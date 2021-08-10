@@ -1,14 +1,18 @@
-from errbot import BotPlugin, botcmd, arg_botcmd, re_botcmd
+"""Detects lucky numbers"""
+import os
 import re
+from errbot import BotPlugin, botcmd
 
-lucky_numbers = [77777977, 777797777, 7777777797777]
-minimum_numbers = 4
+DEFAULT_LUCKY_NUMBERS = '77777977,777797777,7777777797777'
+DEFAULT_MINIMUM_NUMBERS = '4'
 
 
 class Luckynumberdetector(BotPlugin):
     """Detects responses where the numbers add up to the lucky number(s)"""
     def callback_message(self, mess):
         """Runs on every message"""
+        lucky_numbers = os.getenv('lucky_numbers', DEFAULT_LUCKY_NUMBERS).split(',')
+        minimum_numbers = int(os.getenv('minimum_numbers', DEFAULT_MINIMUM_NUMBERS))
         match = re.findall('[0-9]+', mess.body)
         reply = ''
         total = 0
@@ -29,4 +33,6 @@ class Luckynumberdetector(BotPlugin):
 
     @botcmd()
     def luckynumber(self, msg, args):
+        lucky_numbers = os.getenv('lucky_numbers', DEFAULT_LUCKY_NUMBERS).split(',')
+        minimum_numbers = int(os.getenv('minimum_numbers', DEFAULT_MINIMUM_NUMBERS))
         return str(lucky_numbers) + ' in ' + str(minimum_numbers) + ' numbers'
