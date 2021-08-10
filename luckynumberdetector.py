@@ -11,7 +11,9 @@ class Luckynumberdetector(BotPlugin):
     """Detects responses where the numbers add up to the lucky number(s)"""
     def callback_message(self, mess):
         """Runs on every message"""
-        lucky_numbers = os.getenv('lucky_numbers', DEFAULT_LUCKY_NUMBERS).split(',')
+        env_lucky_numbers = os.getenv('lucky_numbers', DEFAULT_LUCKY_NUMBERS).split(',')
+        map_lucky_numbers = map(int, env_lucky_numbers)
+        lucky_numbers = list(map_lucky_numbers)
         minimum_numbers = int(os.getenv('minimum_numbers', DEFAULT_MINIMUM_NUMBERS))
         match = re.findall('[0-9]+', mess.body)
         reply = ''
